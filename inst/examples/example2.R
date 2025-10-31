@@ -97,7 +97,7 @@ for (d in seq_len(ndays)) {
   profiles_daily_preET[[d]] <- fronts
   
   # --- (b) Apply daily ET using θ★–θwp scheme --------------------------
-  et <- apply_ET_paper_style(
+  et <- apply_ET(
     fronts,
     ep = ep_day[d], Cv = Cv_day[d], dt = 1.0,   # daily step
     theta_star = theta_star, theta_wp = theta_wp,

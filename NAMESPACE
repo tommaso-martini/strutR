@@ -2,7 +2,7 @@
 
 export(.solve_q_step_picard)
 export(Kfun)
-export(apply_ET_paper_style)
+export(apply_ET)
 export(compute_weighted_avg_theta_by_depth)
 export(mean_theta_in_root_zone)
 export(plot_single_profile)

@@ -230,7 +230,7 @@ mean_theta_in_root_zone <- function(fronts, Z_root, theta_r, delta = 0) {
   numer / Z_root
 }
 
-#' Paper-style ET operator on a fronts profile (single time step)
+#' ET operator on a fronts profile (single time step)
 #'
 #' @description
 #' Applies a transpiration-evaporation partition consistent with common
@@ -271,21 +271,21 @@ mean_theta_in_root_zone <- function(fronts, Z_root, theta_r, delta = 0) {
 #'
 #' @examples
 #' prof <- list(list(theta = 0.25, x = 0.2), list(theta = 0.30, x = 0.6))
-#' apply_ET_paper_style(prof,
+#' apply_ET(prof,
 #'   ep = 4 / 1000, Cv = 0.7, dt = 1,
 #'   theta_star = 0.20, theta_wp = 0.08,
 #'   theta_r = 0.05, theta_s = 0.45,
 #'   Z_root = 0.4, Z_evap = 0.03
 #' )
 #' @export
-apply_ET_paper_style <- function(fronts,
-                                 ep, Cv, dt,
-                                 theta_star, theta_wp,
-                                 theta_r, theta_s,
-                                 Z_root, Z_evap,
-                                 delta = 0,
-                                 debug = FALSE,
-                                 tol_merge = 1e-6) {
+apply_ET <- function(fronts,
+                     ep, Cv, dt,
+                     theta_star, theta_wp,
+                     theta_r, theta_s,
+                     Z_root, Z_evap,
+                     delta = 0,
+                     debug = FALSE,
+                     tol_merge = 1e-6) {
   if (length(fronts) == 0) {
     return(list(fronts = fronts, E_t = 0, E_bs = 0))
   }

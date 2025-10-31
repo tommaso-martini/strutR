@@ -26,7 +26,9 @@ Main features include:
 - Accurate representation of infiltration–redistribution–drainage (IRD) processes based on the Struthers et al. (2006) formulation.
 - Explicit handling of multiple fronts with dynamic merging and drainage to the water table or lower boundary.
 - Brooks–Corey conductivity formulation:
-  \[ K(\theta) = K_s \left(\frac{\theta - \theta_r}{\theta_s - \theta_r}\right)^{1/\beta}. \]
+
+  $$ K(\theta) = K_s \left(\frac{\theta - \theta_r}{\theta_s - \theta_r}\right)^{1/\beta}. $$
+  
 - Modular structure allowing easy coupling with evapotranspiration and root-zone models.
 - Full control over gravitational and capillary terms, numerical tolerances, and merging behaviour.
 - Vignettes and utilities for plotting infiltration profiles, tracking front depths, and computing depth-averaged soil moisture.
@@ -96,6 +98,39 @@ This example performs a single infiltration–redistribution step consistent wit
 The Struthers model simplifies the Richards equation by assuming that soil moisture evolves as a sequence of sharp wetting fronts separating regions of nearly uniform water content. Infiltration creates new fronts, while redistribution gradually equalises moisture differences. The gravitational flux between adjacent layers is proportional to their hydraulic conductivity, and redistribution continues until the storage gradient vanishes or drainage occurs at the bottom boundary. Front merging ensures computational efficiency while maintaining mass balance.
 
 The model can be applied to a wide range of soil textures by specifying \(K_s\), \(\theta_s\), \(\theta_r\), and \(\beta\) according to measured or literature-based hydraulic properties. Drainage can be parameterised by the total soil depth \(L\) and an effective lower boundary condition.
+
+---
+
+## Example scripts
+
+The package includes several **fully reproducible examples** under the `examples/` directory (installed together with the package).  
+These scripts illustrate the use of the *Struthers multiple–wetting–front* model under different boundary conditions and evaporation–transpiration regimes.
+
+| Example file | Description |
+|---------------|-------------|
+| `drydown1.R` | Basic drydown simulation (no ET) with hourly redistribution and free drainage. |
+| `drydown2.R` | Nonlinear drydown with daily evapotranspiration using the $\theta_\star$–$\theta_\mathrm{wp}$ stress formulation. |
+| `example1.R` | Short infiltration–redistribution–drainage event with diagnostic plots. |
+| `example2.R` | Full 40-day simulation combining rainfall bursts, ET, and depth-averaged moisture diagnostics. |
+
+To **locate** these example files in your local installation, use `system.file()`:
+
+```r
+# List all example scripts available in the installed package
+list.files(system.file("examples", package = "strutR"))
+
+# Open one in the R editor
+file.edit(system.file("examples", "drydown1.R", package = "strutR"))
+```
+
+You can also **run them directly** without copying them manually:
+
+```r
+source(system.file("examples", "drydown2.R", package = "strutR"))
+```
+
+Each example produces diagnostic plots and prints intermediate results,  
+making it suitable both for research reproducibility and for teaching purposes.
 
 ---
 

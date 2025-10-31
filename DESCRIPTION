@@ -34,7 +34,7 @@ Suggests:
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 LazyData: true
-URL: https://github.com/tommaso-martini/strutR
+URL: https://github.com/tommaso-martini/strutR, https://tommaso-martini.github.io/strutR
 BugReports: https://github.com/tommaso-martini/strutR/issues
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2

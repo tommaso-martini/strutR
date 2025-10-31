@@ -24,6 +24,8 @@ Computes the Brooks–Corey conductivity \eqn{K(\theta)} with clamping of
 \deqn{K(\theta) = K_s \left(\frac{\theta - \theta_r}{\theta_s - \theta_r}\right)^{1/\beta}.}
 }
 \examples{
-Kfun(theta = c(0.10, 0.20, 0.30),
-     theta_s = 0.45, theta_r = 0.05, beta = 1/8, Ks = 1.0)
+Kfun(
+  theta = c(0.10, 0.20, 0.30),
+  theta_s = 0.45, theta_r = 0.05, beta = 1 / 8, Ks = 1.0
+)
 }

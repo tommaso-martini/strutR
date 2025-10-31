@@ -39,6 +39,6 @@ y-axis (depth increases downward). Optional horizontal markers can be added
 for \code{Z_1} and \code{Z_2}.
 }
 \examples{
-prof <- list(list(theta=0.18,x=0.4), list(theta=0.25,x=0.8))
+prof <- list(list(theta = 0.18, x = 0.4), list(theta = 0.25, x = 0.8))
 plot_single_profile(0.05, 0.45, prof, soil_depth = 1.0, timestep = "Example")
 }

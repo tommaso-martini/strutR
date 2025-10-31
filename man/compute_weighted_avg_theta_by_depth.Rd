@@ -36,7 +36,9 @@ Computes the arithmetic, thickness-weighted average of a piecewise-constant
 respect to absolute depths; uncovered portions default to \eqn{\theta_r}.
 }
 \examples{
-prof <- list(list(theta=0.18,x=0.2), list(theta=0.25,x=0.6))
-compute_weighted_avg_theta_by_depth(prof, depth_limit = 0.5,
-                                    theta_r = 0.05, delta = 0, L = 1.0)
+prof <- list(list(theta = 0.18, x = 0.2), list(theta = 0.25, x = 0.6))
+compute_weighted_avg_theta_by_depth(prof,
+  depth_limit = 0.5,
+  theta_r = 0.05, delta = 0, L = 1.0
+)
 }

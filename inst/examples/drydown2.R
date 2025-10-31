@@ -10,7 +10,7 @@
 # =============================================================================
 
 # --- Assumed available in the workspace --------------------------------------
-#   struthers_redistr_under(), apply_ET_paper_style(), plot_single_profile(),
+#   struthers_redistr_under(), apply_ET(), plot_single_profile(),
 #   compute_weighted_avg_theta_by_depth(), pretty_print_fronts() [optional]
 
 # --- Soil & model parameters (accentuate nonlinearity) -----------------------
@@ -102,7 +102,7 @@ for (d in 1:ndays) {
   profiles_daily_preET[[d + 1]] <- fronts       # state before ET
   
   # --- Apply ET (once per day) with θ★/θ_wp scheme ---------------------------
-  et <- apply_ET_paper_style(
+  et <- apply_ET(
     fronts      = fronts,
     ep          = ETp[d],     # m/day potential ET
     Cv          = Cv,         # fraction to transpiration

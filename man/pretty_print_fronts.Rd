@@ -20,6 +20,7 @@ water contents \eqn{\theta} and depths \eqn{x} (m). Intended for interactive
 tracing and debugging.
 }
 \examples{
-pretty_print_fronts(list(list(theta=0.20, x=1.2), list(theta=0.30, x=0.6)),
-                    label = "Current fronts")
+pretty_print_fronts(list(list(theta = 0.20, x = 1.2), list(theta = 0.30, x = 0.6)),
+  label = "Current fronts"
+)
 }

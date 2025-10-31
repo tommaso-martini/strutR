@@ -25,6 +25,7 @@ depth \eqn{Z_{\mathrm{root}}}, defaulting uncovered spans to \eqn{\theta_r}.
 This is consistent with the stepwise representation used in the ET operators.
 }
 \examples{
-mean_theta_in_root_zone(list(list(theta=0.20,x=0.3), list(theta=0.28,x=0.8)),
-                        Z_root = 0.5, theta_r = 0.05)
+mean_theta_in_root_zone(list(list(theta = 0.20, x = 0.3), list(theta = 0.28, x = 0.8)),
+  Z_root = 0.5, theta_r = 0.05
+)
 }

@@ -68,12 +68,15 @@
 <p>This R implementation, <code>strutR</code>, is designed for reproducibility, transparency, and compatibility with stochastic and deterministic hydrological modelling. It can be used both as a standalone infiltration–redistribution solver and as a lower boundary module coupled to surface or root-zone models (for example, a two-bucket system).</p>
 <p>Main features include:</p>
 <ul>
-<li>Accurate representation of infiltration–redistribution–drainage (IRD) processes based on the Struthers et al. (2006) formulation.</li>
-<li>Explicit handling of multiple fronts with dynamic merging and drainage to the water table or lower boundary.</li>
-<li>Brooks–Corey conductivity formulation: [ K() = K_s ()^{1/}. ]</li>
-<li>Modular structure allowing easy coupling with evapotranspiration and root-zone models.</li>
-<li>Full control over gravitational and capillary terms, numerical tolerances, and merging behaviour.</li>
-<li>Vignettes and utilities for plotting infiltration profiles, tracking front depths, and computing depth-averaged soil moisture.</li>
+<li><p>Accurate representation of infiltration–redistribution–drainage (IRD) processes based on the Struthers et al. (2006) formulation.</p></li>
+<li><p>Explicit handling of multiple fronts with dynamic merging and drainage to the water table or lower boundary.</p></li>
+<li>
+<p>Brooks–Corey conductivity formulation:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>θ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mi>K</mi><mi>s</mi></msub><msup><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mrow><mi>θ</mi><mo>−</mo><msub><mi>θ</mi><mi>r</mi></msub></mrow><mrow><msub><mi>θ</mi><mi>s</mi></msub><mo>−</mo><msub><mi>θ</mi><mi>r</mi></msub></mrow></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mn>1</mn><mi>/</mi><mi>β</mi></mrow></msup><mi>.</mi></mrow><annotation encoding="application/x-tex"> K(\theta) = K_s \left(\frac{\theta - \theta_r}{\theta_s - \theta_r}\right)^{1/\beta}. </annotation></semantics></math></p>
+</li>
+<li><p>Modular structure allowing easy coupling with evapotranspiration and root-zone models.</p></li>
+<li><p>Full control over gravitational and capillary terms, numerical tolerances, and merging behaviour.</p></li>
+<li><p>Vignettes and utilities for plotting infiltration profiles, tracking front depths, and computing depth-averaged soil moisture.</p></li>
 </ul>
 <p>This implementation aims to provide a faithful and research-ready translation of the original conceptual model, suitable for hydrological process analysis, ecohydrology, soil physics education, and stochastic soil moisture studies.</p>
 <hr>
@@ -95,7 +98,7 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_local.html" class="external-link">install_local</a></span><span class="op">(</span><span class="st">"."</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tommaso-martini/strutR" class="external-link">strutR</a></span><span class="op">)</span></span></code></pre></div>
-<p>After installation, all core functions and vignettes can be accessed using <code><a href="https://rdrr.io/pkg/strutR/man" class="external-link">help(package = "strutR")</a></code>.</p>
+<p>After installation, all core functions and vignettes can be accessed using <code><a href="https://tommaso-martini.github.io/strutR/reference">help(package = "strutR")</a></code>.</p>
 <hr>
 </div>
 </div>
@@ -136,6 +139,53 @@
 </h2>
 <p>The Struthers model simplifies the Richards equation by assuming that soil moisture evolves as a sequence of sharp wetting fronts separating regions of nearly uniform water content. Infiltration creates new fronts, while redistribution gradually equalises moisture differences. The gravitational flux between adjacent layers is proportional to their hydraulic conductivity, and redistribution continues until the storage gradient vanishes or drainage occurs at the bottom boundary. Front merging ensures computational efficiency while maintaining mass balance.</p>
 <p>The model can be applied to a wide range of soil textures by specifying (K_s), (_s), (_r), and () according to measured or literature-based hydraulic properties. Drainage can be parameterised by the total soil depth (L) and an effective lower boundary condition.</p>
+<hr>
+</div>
+<div class="section level2">
+<h2 id="example-scripts">Example scripts<a class="anchor" aria-label="anchor" href="#example-scripts"></a>
+</h2>
+<p>The package includes several <strong>fully reproducible examples</strong> under the <code>examples/</code> directory (installed together with the package).<br>
+These scripts illustrate the use of the <em>Struthers multiple–wetting–front</em> model under different boundary conditions and evaporation–transpiration regimes.</p>
+<table class="table">
+<colgroup>
+<col width="53%">
+<col width="46%">
+</colgroup>
+<thead><tr class="header">
+<th>Example file</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>drydown1.R</code></td>
+<td>Basic drydown simulation (no ET) with hourly redistribution and free drainage.</td>
+</tr>
+<tr class="even">
+<td><code>drydown2.R</code></td>
+<td>Nonlinear drydown with daily evapotranspiration using the <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mo>⋆</mo></msub><annotation encoding="application/x-tex">\theta_\star</annotation></semantics></math>–<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mrow><mi mathvariant="normal">w</mi><mi mathvariant="normal">p</mi></mrow></msub><annotation encoding="application/x-tex">\theta_\mathrm{wp}</annotation></semantics></math> stress formulation.</td>
+</tr>
+<tr class="odd">
+<td><code>example1.R</code></td>
+<td>Short infiltration–redistribution–drainage event with diagnostic plots.</td>
+</tr>
+<tr class="even">
+<td><code>example2.R</code></td>
+<td>Full 40-day simulation combining rainfall bursts, ET, and depth-averaged moisture diagnostics.</td>
+</tr>
+</tbody>
+</table>
+<p>To <strong>locate</strong> these example files in your local installation, use <code><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file()</a></code>:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># List all example scripts available in the installed package</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, package <span class="op">=</span> <span class="st">"strutR"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Open one in the R editor</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/file.edit.html" class="external-link">file.edit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"drydown1.R"</span>, package <span class="op">=</span> <span class="st">"strutR"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>You can also <strong>run them directly</strong> without copying them manually:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/source.html" class="external-link">source</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"drydown2.R"</span>, package <span class="op">=</span> <span class="st">"strutR"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Each example produces diagnostic plots and prints intermediate results,<br>
+making it suitable both for research reproducibility and for teaching purposes.</p>
 <hr>
 </div>
 <div class="section level2">

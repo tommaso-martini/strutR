@@ -4,11 +4,11 @@ type: software
 title: "strutR: Struthers Wetting-Front Model for Infiltration, Redistribution, and Drainage"
 version: "0.1.2"
 abstract: >
-  Reference implementation in R of the Struthers multiple-wetting-front gravitational 
-  infiltration and redistribution model for soil-water balance applications 
-  (Struthers, Hinz, and Sivapalan, 2006, Water Resources Research, 42(6), W06406). 
-  This software provides an open, modular, and fully documented version of the original 
-  model equations for infiltration, redistribution, front merging, and drainage 
+  Reference implementation in R of the Struthers multiple-wetting-front gravitational
+  infiltration and redistribution model for soil-water balance applications
+  (Struthers, Hinz, and Sivapalan, 2006, Water Resources Research, 42(6), W06406).
+  This software provides an open, modular, and fully documented version of the original
+  model equations for infiltration, redistribution, front merging, and drainage
   in one-dimensional unsaturated soils.
 
 authors:
@@ -17,8 +17,9 @@ authors:
     affiliation: "Department of Regional and Urban Studies and Planning (DIST), University of Turin (UniTo), Italy"
     email: "tommaso.martini@unito.it"
 
-license: MIT
+license: "MIT"
 repository-code: "https://github.com/tommaso-martini/strutR"
+url: "https://tommaso-martini.github.io/strutR/"
 keywords:
   - hydrology
   - soil moisture
@@ -29,16 +30,6 @@ keywords:
   - unsaturated flow
   - R package
 
-# --- Identifiers (software DOI + article DOI) ---
-identifiers:
-  - type: doi
-    value: 10.5281/zenodo.xxxxxx
-    description: "DOI of the strutR R package on Zenodo"
-  - type: doi
-    value: 10.1029/2005WR004645
-    description: "Original scientific article by Struthers et al. (2006) describing the wetting-front model"
-
-# --- Preferred citation for the SOFTWARE itself (used by Zenodo) ---
 preferred-citation:
   type: software
   title: "strutR: Struthers Wetting-Front Model for Infiltration, Redistribution, and Drainage (R package)"
@@ -46,15 +37,9 @@ preferred-citation:
     - family-names: Martini
       given-names: Tommaso
   year: 2025
-  version: "0.1.0"
-  doi: 10.5281/zenodo.xxxxxx
+  version: "0.1.2"
   url: "https://github.com/tommaso-martini/strutR"
-  license: "MIT"
-  notes: >
-    This software is an independent R implementation of the model introduced by 
-    Struthers, Hinz, and Sivapalan (2006) in Water Resources Research.
 
-# --- Reference to the original scientific model ---
 references:
   - type: article
     title: "A multiple wetting front gravitational infiltration and redistribution model for water balance applications"

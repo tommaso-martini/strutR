@@ -18,12 +18,6 @@ vignette: >
 <div style="display:none">
 \[
 \require{siunitx}
-% --- Macro usate nel testo ---
-\newcommand{\thstar}{\theta_{\star}}
-\newcommand{\thwp}{\theta_{\mathrm{wp}}}
-\newcommand{\ths}{\theta_{\mathrm{s}}}
-\newcommand{\thr}{\theta_{\mathrm{r}}}
-\newcommand{\dz}{\,\mathrm{d}z}
 \]
 </div>
 
@@ -36,59 +30,60 @@ where \(x_i\) is the depth (m) of the \(i\)-th front and \(\theta_i\) is the vol
 - **Front 1** is the **deepest** front (closest to \(L\));  
 - **Front \(n_F\)** is the **shallowest** (closest to the surface).
 
-Between two consecutive fronts \(x_{i-1}\) and \(x_i\) the profile is **piecewise constant** at \(\theta_i\) (rectangular layers). The residual and saturated water contents are \(\thr\) and \(\ths\), respectively.
+Between two consecutive fronts \(x_{i-1}\) and \(x_i\) the profile is **piecewise constant** at \(\theta_i\) (rectangular layers). The residual and saturated water contents are \(\theta_{\mathrm{r}}\) and \(\theta_{\mathrm{s}}\), respectively.
 
 We assume a Brooks–Corey conductivity model
-\[
-K(\theta) \;=\; K_s \left(\frac{\theta-\thr}{\ths-\thr}\right)^{1/b},
-\]
-with \(K_s\) [\si{m.d^{-1}}] and shape parameter \(b>0\).
+$$
+K(\theta) \;=\; K_s \left(\frac{\theta-\theta_{\mathrm{r}}}{\theta_{\mathrm{s}}-\theta_{\mathrm{r}}}\right)^{1/b},
+$$
+with \(K_s\) [$m\,\mathrm{d}^{-1}$] and shape parameter \(b>0\).
 
 ## Notation
 
 - \(L\) [m]: profile depth.  
 - \(\delta\) [m]: depth at which the wetting model starts (often \(\delta=0\)).  
-- \(f(t)\) [\si{m.d^{-1}}]: infiltration supply at the soil surface.  
-- \(\thstar\) (theta\_star): **stress onset** threshold.  
-- \(\thwp\) (theta\_wp): **wilting** threshold for transpiration.  
+- \(f(t)\) [$m\,\mathrm{d}^{-1}$]: infiltration supply at the soil surface.  
+- \(\theta_{\star}\) (theta\_star): **stress onset** threshold.  
+- \(\theta_{\mathrm{wp}}\) (theta\_wp): **wilting** threshold for transpiration.  
 - \(Z_{\text{root}}\) [m]: active root-zone thickness from the surface; \(Z_{\text{evap}}\) [m]: active thickness for bare-soil evaporation.  
-- \(e_p\) [\si{m.d^{-1}}]: potential evaporation (reference ET) per day; \(C_v\in[0,1]\) fraction allocated to transpiration on that day.
+- \(e_p\) [$m\,\mathrm{d}^{-1}$]: potential evaporation (reference ET) per day; \(C_v\in[0,1]\) fraction allocated to transpiration on that day.
 
 # Infiltration–Redistribution Equations
 
 ## Flux partition and front ODEs (Eqs. 7a–7b)
 
 Let \(q_i(t)\) be the vertical flux immediately above front \(i\) (positive downward). Over one sub-step \(\Delta t\) we partition the surface supply \(f\) using the local conductivities:
-\[
+$$
 q_i(t) \;=\; \min\big(f(t),\, K(\theta_i)\big)\;-\;\min\big(f(t),\, K(\theta_{i-1})\big),
 \qquad i=1,\dots,n_F,
-\]
+$$
 with the convention \(K(\theta_0)\equiv 0\). The layer water contents \(\theta_i\) evolve with a gravitational balance (Struthers et al., Eqs. 7a–7b). In discrete form with an explicit–implicit Picard iteration on \(\theta\), one time step \(\Delta t\) updates
-\[
+$$
 \theta_i^{n+1} \approx \theta_i^{n} + \Delta t\, \frac{ q_i(\theta^{(k)}) - K(\theta_i^{(k)}) + K(\theta_{i-1}^{(k)})}{x_i^{n}-x_{i-1}^{n}},
-\]
+$$
 where \(k\) indexes the Picard iterate (all \(\theta\) updated simultaneously). Alternative formulations iterate on \(\mathbf q=(q_1,\dots,q_{n_F})\); both lead, after convergence, to the same mass update below.
 
 ## Mass balance for front depths (Eq. 1)
 
 Once \(\theta^{n+1}\) and the integrated layer **volumes** are known, front depths are updated by the discrete mass balance
-\[
+$$
 S_i^{n} = (x_i^{n}-x_{i-1}^{n})\,(\theta_i^{n}-\theta_{i-1}^{n}), \qquad
 S_i^{n+1} = S_i^{n} + q_i^{n}\,\Delta t,
-\]
-\[
+$$
+
+$$
 x_i^{n+1} \;=\; x_{i-1}^{n+1} \;+\; \frac{S_i^{n+1}}{\max\!\big(\theta_i^{n+1}-\theta_{i-1}^{n+1},\,\varepsilon\big)}.
-\]
+$$
 Here \(\varepsilon\) is a small numerical tolerance. This update preserves **column water mass** by construction.
 
 ## Free drainage (D) and merging
 
 Free drainage is applied **only to the shallowest** front (index \(n_F\)) after the mass update:
-\[
+$$
 \text{if } x_{n_F}^{n+1} > L,\quad
 \text{drainage} \;=\; (x_{n_F}^{n+1}-L)\,\max(\theta_{n_F}^{n+1}-\theta_{n_F-1}^{n+1},0),\quad
 x_{n_F}^{n+1}\leftarrow L.
-\]
+$$
 
 After I–R–D, adjacent fronts are **merged** if either
 
@@ -97,90 +92,90 @@ After I–R–D, adjacent fronts are **merged** if either
 3. (stability guard) a **\(\theta\) inversion** is detected, i.e. \(\theta_i<\theta_{i-1}\) for some \(i\).
 
 Merging conserves water volume by aggregating positive storage contributions
-\[
+$$
 S_{\text{tot}} \;=\; \sum_{j\in\mathcal I} \max\bigl[(x_j-x_{j-1})\,(\theta_j-\theta_{j-1}),\,0\bigr],
 \quad
 \theta_{\text{new}} = \max_{j\in\mathcal I}\theta_j,\quad
 x_{\text{new}} = x_{\min} + \frac{S_{\text{tot}}}{\max(\theta_{\text{new}}-\theta_{\min},\varepsilon)}.
-\]
+$$
 
-# Evapotranspiration with \(\thstar\) and \(\thwp\)
+# Evapotranspiration with \(\theta_{\star}\) and \(\theta_{\mathrm{wp}}\)
 
 ET is applied **after** I–R–D, without moving the front depths \(x_i\). Let the root-zone be \([\,\delta,\ \delta+Z_{\text{root}}\,]\). Define the **depth-weighted mean** water content in the root zone:
-\[
+$$
 \bar{\theta}_{\text{root}} \;=\;
-\frac{1}{Z_{\text{root}}}\int_{\delta}^{\delta+Z_{\text{root}}}\theta(z)\,\dz
+\frac{1}{Z_{\text{root}}}\int_{\delta}^{\delta+Z_{\text{root}}}\theta(z)\,\,\mathrm{d}z
 \;\approx\;
 \frac{1}{Z_{\text{root}}}\sum_{i\in \mathcal I(\delta,\delta+Z_{\text{root}})}
 \theta_i\,\Delta z_i^\ast,
-\]
+$$
 where \(\Delta z_i^\ast\) is the fraction of layer \(i\) that lies inside the root-zone.
 
 Let \(D_t = e_p\,C_v\,\Delta t\) be the **potential transpiration depth** for the daily step, and \(D_{bs}= e_p(1-C_v)\Delta t\) the bare-soil potential evaporation depth.
 
-## Transpiration \(E_t\) (Eqs. 10–12, with \(\thstar\), \(\thwp\))
+## Transpiration \(E_t\) (Eqs. 10–12, with \(\theta_{\star}\), \(\theta_{\mathrm{wp}}\))
 
-1. **Potential (unstressed) phase** up to \(\thstar\).  
-   Water needed to raise/reduce the mean to \(\thstar\):
-   \[
-   S_{\star} \;=\; \max\!\left(0,\ \bigl(\bar{\theta}_{\text{root}}-\thstar\bigr)\,Z_{\text{root}}\right),
+1. **Potential (unstressed) phase** up to \(\theta_{\star}\).  
+   Water needed to raise/reduce the mean to \(\theta_{\star}\):
+   $$
+   S_{\star} \;=\; \max\!\left(0,\ \bigl(\bar{\theta}_{\text{root}}-\theta_{\star}\bigr)\,Z_{\text{root}}\right),
    \qquad
    t_{\star} \;=\; \frac{S_{\star}}{D_t}.
-   \]
+   $$
    If \(t_{\star}\ge \Delta t\) then \(E_t = D_t\) (all potential).
 
-2. **Stressed phase** between \(\thstar\) and \(\thwp\).  
-   The available storage above \(\thwp\) in the root-zone is
-   \[
-   S_{\mathrm{avail},\wp} \;=\; \int_{\delta}^{\delta+Z_{\text{root}}}\max\big(\theta(z)-\thwp,\,0\big)\,\dz.
-   \]
+2. **Stressed phase** between \(\theta_{\star}\) and \(\theta_{\mathrm{wp}}\).  
+   The available storage above \(\theta_{\mathrm{wp}}\) in the root-zone is
+   $$
+   S_{\mathrm{avail},\wp} \;=\; \int_{\delta}^{\delta+Z_{\text{root}}}\max\big(\theta(z)-\theta_{\mathrm{wp}},\,0\big)\,\,\mathrm{d}z.
+   $$
    The exponential form (Eq. 12, re-expressed in \(\theta\)) over the leftover time \(\Delta t - t_{\star}\) gives the target
-   \[
+   $$
    E_{t,\mathrm{stress}} \;=\; S_{\mathrm{cap}}\,
    \Bigl(1 - e^{-\,(\,D_t(\Delta t - t_{\star})\,)/S_{\mathrm{cap}}}\Bigr),\qquad
-   S_{\mathrm{cap}} = (\thstar-\thwp)\,Z_{\text{root}}.
-   \]
+   S_{\mathrm{cap}} = (\theta_{\star}-\theta_{\mathrm{wp}})\,Z_{\text{root}}.
+   $$
    The total target is \(E_t^\text{target} = \min\{\,S_{\mathrm{avail},\wp},\ S_\star + E_{t,\mathrm{stress}}\,\}\).
 
 3. **Application rule (volume removal)**.  
-   Remove \(E_t^\text{target}\) **top–down** from the root-zone, reducing \(\theta\) of the shallowest layers first while enforcing \(\theta\ge \max(\thwp,\thr)\). If a layer’s storage
+   Remove \(E_t^\text{target}\) **top–down** from the root-zone, reducing \(\theta\) of the shallowest layers first while enforcing \(\theta\ge \max(\theta_{\mathrm{wp}},\theta_{\mathrm{r}})\). If a layer’s storage
    \((x_i-x_{i-1})(\theta_i-\theta_{i-1})\) is exhausted, drop that front (merge).
 
 ## Bare-soil evaporation \(E_{bs}\) (Eq. 9)
 
-Define the **evaporative layer** \([\,\delta,\ \delta+Z_{\text{evap}}\,]\) (typically \(Z_{\text{evap}}\!\sim\!0.05\)–\SI{0.1}{m}). Its available storage above \(\thr\) is
-\[
-S_{\mathrm{evap}} \;=\; \int_{\delta}^{\delta+Z_{\text{evap}}}\max\big(\theta(z)-\thr,\,0\big)\,\dz.
-\]
+Define the **evaporative layer** \([\,\delta,\ \delta+Z_{\text{evap}}\,]\) (typically \(Z_{\text{evap}}\!\sim\!0.05\)–$0.1\ \mathrm{m}$). Its available storage above \(\theta_{\mathrm{r}}\) is
+$$
+S_{\mathrm{evap}} \;=\; \int_{\delta}^{\delta+Z_{\text{evap}}}\max\big(\theta(z)-\theta_{\mathrm{r}},\,0\big)\,\,\mathrm{d}z.
+$$
 The daily target is
-\[
+$$
 E_{bs}^\text{target} \;=\; S_{\mathrm{evap}}\,
 \Bigl(1 - e^{-\, D_{bs}/S_{\mathrm{evap}}}\Bigr),
-\]
-applied top–down within \([\,\delta,\delta+Z_{\text{evap}}\,]\) while enforcing \(\theta\ge\thr\).
+$$
+applied top–down within \([\,\delta,\delta+Z_{\text{evap}}\,]\) while enforcing \(\theta\ge\theta_{\mathrm{r}}\).
 
 ## Multilayer transpiration (Eq. 18)
 
 If transpiration is split across multiple active layers \(j=1,\dots,J\) (e.g. surface and deep roots), distribute the potential demand as
-\[
+$$
 f_j \;=\;
 \frac{\displaystyle \sum_{i\in \mathcal I_j}
-\Big(\max(\theta_{i,j},\thwp) - \max(\theta_{i-1,j},\thwp)\Big)}
+\Big(\max(\theta_{i,j},\theta_{\mathrm{wp}}) - \max(\theta_{i-1,j},\theta_{\mathrm{wp}})\Big)}
 {\displaystyle \sum_{m=1}^{J}\sum_{i\in \mathcal I_m}
-\Big(\max(\theta_{i,m},\thwp) - \max(\theta_{i-1,m},\thwp)\Big)},
+\Big(\max(\theta_{i,m},\theta_{\mathrm{wp}}) - \max(\theta_{i-1,m},\theta_{\mathrm{wp}})\Big)},
 \qquad \sum_j f_j = 1,
-\]
+$$
 and apply the two-phase rule independently in each layer with \(D_t^{(j)}=f_j\,D_t\).
 
 # Numerical safeguards
 
-- Clamp \(\theta\in[\thr,\ths]\).
+- Clamp \(\theta\in[\theta_{\mathrm{r}},\theta_{\mathrm{s}}]\).
 - Merge when \(|\theta_i-\theta_{i-1}|<\tau\), on **overtake**, or on **\(\theta\)-inversion**.
 - When applying ET with very large targets, sub-cycle the removal to avoid multiple front deletions in one call.
 
 # Example: 40‑day simulation with hourly sub‑steps
 
-The following example demonstrates I–R–D with daily ET using \(\thstar\) and \(\thwp\). Units are meters and days.
+The following example demonstrates I–R–D with daily ET using \(\theta_{\star}\) and \(\theta_{\mathrm{wp}}\). Units are meters and days.
 
 ```{r setup, message=FALSE, warning=FALSE}
 library(strutR) # if packaged
@@ -310,7 +305,7 @@ for (dd in days_to_plot) {
 par(op)
 ```
 
-## Depth‑averaged \(\bar\theta(0,z^\*)\) time series
+## Depth‑averaged \(\bar\theta(0,z^{*})\) time series
 
 ```{r depth-avg, fig.width=7.2, fig.height=3.8}
 depths <- c(0.05, 0.10, 0.20, 0.40, 1.0)

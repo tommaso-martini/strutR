@@ -449,7 +449,7 @@ avoid multiple front deletions in one call.</li>
 <span>  <span class="va">profiles_daily_preET</span><span class="op">[[</span><span class="va">d</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">fronts</span></span>
 <span></span>
 <span>  <span class="co"># Daily ET: transpiration (θ★/θwp) + bare-soil evaporation (no movement of x)</span></span>
-<span>  <span class="va">et</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/apply_ET_paper_style.html">apply_ET_paper_style</a></span><span class="op">(</span></span>
+<span>  <span class="va">et</span> <span class="op">&lt;-</span> <span class="fu">apply_ET_paper_style</span><span class="op">(</span></span>
 <span>    fronts      <span class="op">=</span> <span class="va">fronts</span>,</span>
 <span>    ep          <span class="op">=</span> <span class="va">ETp</span><span class="op">[</span><span class="va">d</span><span class="op">]</span>, <span class="co"># m/day potential ET</span></span>
 <span>    Cv          <span class="op">=</span> <span class="va">Cv</span>, <span class="co"># fraction to transpiration</span></span>

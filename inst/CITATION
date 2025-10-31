@@ -1,0 +1,21 @@
+citHeader("Please cite the implementation and the original method paper.")
+
+citEntry(
+  entry = "Manual",
+  title = "strutR: Implementation of Struthers multi-front infiltration–redistribution–drainage (R package)",
+  author = person("Tommaso", "Martini"),
+  year = "2025",
+  note = "R package version 0.1.0",
+  url = "https://github.com/your-repo/strutR"
+)
+
+citEntry(
+  entry = "Article",
+  title = "A multiple wetting front gravitational infiltration and redistribution model for water balance applications",
+  author = c(person("Iain", "Struthers"),
+             person("Christoph", "Hinz"),
+             person("Murugesu", "Sivapalan")),
+  journal = "Water Resources Research",
+  year = "2006",
+  doi = "10.1029/2005WR004645"
+)

@@ -1,0 +1,50 @@
+{
+  "title": "strutR: Struthers Wetting-Front Model for Infiltration, Redistribution, and Drainage (R implementation)",
+  "upload_type": "software",
+  "creators": [
+    {
+      "name": "Martini, Tommaso",
+      "affiliation": "Department of Regional and Urban Studies and Planning (DIST), University of Turin (UniTo), Italy",
+      "orcid": "0000-0000-0000-0000"
+    }
+  ],
+  "description": "Reference implementation in R of the multiple-wetting-front gravitational infiltration and redistribution model originally proposed by Struthers, Hinz, and Sivapalan (2006, Water Resources Research, 42(6), W06406). The package provides open-source functions for infiltration, redistribution, front merging, and drainage in one-dimensional unsaturated soils, with full documentation and example scripts.",
+  "keywords": [
+    "hydrology",
+    "soil moisture",
+    "infiltration",
+    "redistribution",
+    "drainage",
+    "wetting fronts",
+    "unsaturated flow",
+    "R package"
+  ],
+  "license": "MIT",
+  "related_identifiers": [
+    {
+      "relation": "isDerivedFrom",
+      "identifier": "https://doi.org/10.1029/2005WR004645",
+      "scheme": "doi",
+      "resource_type": "publication",
+      "description": "Original article describing the wetting-front model (Struthers, Hinz, & Sivapalan, 2006, Water Resources Research)."
+    },
+    {
+      "relation": "isSupplementTo",
+      "identifier": "https://github.com/tommaso-martini/strutR",
+      "scheme": "url",
+      "resource_type": "software",
+      "description": "GitHub repository of the strutR R package."
+    }
+  ],
+  "notes": "This record corresponds to the official versioned release of the R package 'strutR', which implements the wetting-front infiltration and redistribution model originally published by Struthers et al. (2006). The software provides a transparent and reproducible R translation of the conceptual model equations for educational and research use. A new DOI will be automatically minted by Zenodo upon each GitHub release and linked to this concept DOI.",
+  "contributors": [
+    {
+      "name": "Ferraris, Stefano",
+      "affiliation": "Department of Regional and Urban Studies and Planning (DIST), University of Turin (UniTo), Italy",
+      "type": "Supervisor"
+    }
+  ],
+  "access_right": "open",
+  "language": "eng",
+  "version": "0.1.0"
+}

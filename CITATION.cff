@@ -1,0 +1,76 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "strutR: Struthers Wetting-Front Model for Infiltration, Redistribution, and Drainage"
+version: "0.1.0"
+abstract: >
+  Reference implementation in R of the Struthers multiple-wetting-front gravitational 
+  infiltration and redistribution model for soil-water balance applications 
+  (Struthers, Hinz, and Sivapalan, 2006, Water Resources Research, 42(6), W06406). 
+  This software provides an open, modular, and fully documented version of the original 
+  model equations for infiltration, redistribution, front merging, and drainage 
+  in one-dimensional unsaturated soils.
+
+authors:
+  - family-names: Martini
+    given-names: Tommaso
+    affiliation: "Department of Regional and Urban Studies and Planning (DIST), University of Turin (UniTo), Italy"
+    email: "tommaso.martini@unito.it"
+    orcid: "https://orcid.org/0000-0000-0000-0000"
+
+license: MIT
+repository-code: "https://github.com/tommaso-martini/strutR"
+keywords:
+  - hydrology
+  - soil moisture
+  - infiltration
+  - redistribution
+  - drainage
+  - wetting fronts
+  - unsaturated flow
+  - R package
+
+# --- Identifiers (software DOI + article DOI) ---
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.xxxxxx
+    description: "DOI of the strutR R package on Zenodo"
+  - type: doi
+    value: 10.1029/2005WR004645
+    description: "Original scientific article by Struthers et al. (2006) describing the wetting-front model"
+
+# --- Preferred citation for the SOFTWARE itself (used by Zenodo) ---
+preferred-citation:
+  type: software
+  title: "strutR: Struthers Wetting-Front Model for Infiltration, Redistribution, and Drainage (R package)"
+  authors:
+    - family-names: Martini
+      given-names: Tommaso
+  year: 2025
+  version: "0.1.0"
+  doi: 10.5281/zenodo.xxxxxx
+  url: "https://github.com/tommaso-martini/strutR"
+  license: "MIT"
+  notes: >
+    This software is an independent R implementation of the model introduced by 
+    Struthers, Hinz, and Sivapalan (2006) in Water Resources Research.
+
+# --- Reference to the original scientific model ---
+references:
+  - type: article
+    title: "A multiple wetting front gravitational infiltration and redistribution model for water balance applications"
+    authors:
+      - family-names: Struthers
+        given-names: Iain
+      - family-names: Hinz
+        given-names: Christoph
+      - family-names: Sivapalan
+        given-names: Murugesu
+    year: 2006
+    journal: "Water Resources Research"
+    volume: 42
+    issue: 6
+    pages: "W06406"
+    doi: 10.1029/2005WR004645
+    url: "https://doi.org/10.1029/2005WR004645"
+    publisher: "American Geophysical Union (AGU)"

@@ -1,0 +1,144 @@
+# strutR — Struthers Wetting-Front Model for Infiltration, Redistribution, and Drainage
+
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.xxxxxx.svg)](https://doi.org/10.5281/zenodo.xxxxxx)
+
+The `strutR` package provides a complete, transparent, and open-source R implementation of the multiple wetting-front gravitational infiltration and redistribution model originally introduced by:
+
+Struthers, I., Hinz, C., & Sivapalan, M. (2006). *A multiple wetting front gravitational infiltration and redistribution model for water balance applications.* Water Resources Research, 42(6), W06406. https://doi.org/10.1029/2005WR004645
+
+---
+
+## Overview
+
+The model describes infiltration, redistribution, and drainage in a one-dimensional unsaturated soil column through the dynamics of moving wetting fronts. Each front represents a discontinuity in soil water content, moving downward as infiltration proceeds and merging when moisture contrasts become small. The model assumes gravity-driven flow between fronts, with conductivity governed by a Brooks–Corey law and water mass conserved throughout redistribution and drainage.
+
+This R implementation, `strutR`, is designed for reproducibility, transparency, and compatibility with stochastic and deterministic hydrological modelling. It can be used both as a standalone infiltration–redistribution solver and as a lower boundary module coupled to surface or root-zone models (for example, a two-bucket system).
+
+Main features include:
+
+- Accurate representation of infiltration–redistribution–drainage (IRD) processes based on the Struthers et al. (2006) formulation.
+- Explicit handling of multiple fronts with dynamic merging and drainage to the water table or lower boundary.
+- Brooks–Corey conductivity formulation:
+  \[ K(\theta) = K_s \left(\frac{\theta - \theta_r}{\theta_s - \theta_r}\right)^{1/\beta}. \]
+- Modular structure allowing easy coupling with evapotranspiration and root-zone models.
+- Full control over gravitational and capillary terms, numerical tolerances, and merging behaviour.
+- Vignettes and utilities for plotting infiltration profiles, tracking front depths, and computing depth-averaged soil moisture.
+
+This implementation aims to provide a faithful and research-ready translation of the original conceptual model, suitable for hydrological process analysis, ecohydrology, soil physics education, and stochastic soil moisture studies.
+
+---
+
+## Installation
+
+### From GitHub
+
+```r
+# install.packages("devtools")  # if not already installed
+devtools::install_github("tommaso-martini/strutR")
+library(strutR)
+```
+
+### From a local source folder
+
+```r
+devtools::install_local(".")
+library(strutR)
+```
+
+After installation, all core functions and vignettes can be accessed using `help(package = "strutR")`.
+
+---
+
+## Quick Example
+
+A minimal infiltration–redistribution–drainage (IRD) simulation using the Struthers solver:
+
+```r
+# Initial conditions
+fronts <- list(list(theta = 0.10, x = 2.0))
+
+# Parameters
+theta_r <- 0.05
+theta_s <- 0.45
+beta    <- 1/8
+Ks      <- 1.0
+L       <- 2.0
+delta   <- 0.0
+dt      <- 1/24
+f_t     <- 0.01  # 10 mm/day
+
+# Run a single redistribution step
+res <- struthers_redistr_under(
+  fronts = fronts,
+  theta_r = theta_r, theta_s = theta_s,
+  beta = beta, Ks = Ks,
+  L = L, delta = delta,
+  f_t = f_t,
+  dt_sub = dt
+)
+
+str(res)
+```
+
+This example performs a single infiltration–redistribution step consistent with the Struthers model equations, returning updated front positions, water contents, and drainage fluxes. Multiple steps can be iterated to represent continuous wet and dry cycles.
+
+## Accessing Example Scripts and Data
+
+The following gives a list of all the available examples.
+
+```r
+# List all example scripts included with the package
+list.files(system.file("examples", package = "strutR"))
+```
+
+They can be accessed as follows.
+
+```r
+# Locate an example script included with the package
+example_path <- system.file("examples", "put_example_name_here.R", package = "strutR")
+
+# Check that the file exists and display its path
+if (example_path == "") stop("Example file not found in the installed package.")
+cat("Example file path:", example_path, "\n")
+
+# Run the example
+source(example_path)
+```
+---
+
+## Theoretical background
+
+The Struthers model simplifies the Richards equation by assuming that soil moisture evolves as a sequence of sharp wetting fronts separating regions of nearly uniform water content. Infiltration creates new fronts, while redistribution gradually equalises moisture differences. The gravitational flux between adjacent layers is proportional to their hydraulic conductivity, and redistribution continues until the storage gradient vanishes or drainage occurs at the bottom boundary. Front merging ensures computational efficiency while maintaining mass balance.
+
+The model can be applied to a wide range of soil textures by specifying \(K_s\), \(\theta_s\), \(\theta_r\), and \(\beta\) according to measured or literature-based hydraulic properties. Drainage can be parameterised by the total soil depth \(L\) and an effective lower boundary condition.
+
+---
+
+## Citation
+
+If you use this software, please cite **both** the original model and this R implementation:
+
+Struthers, I., Hinz, C., & Sivapalan, M. (2006). *A multiple wetting front gravitational infiltration and redistribution model for water balance applications.* Water Resources Research, 42(6), W06406. https://doi.org/10.1029/2005WR004645
+
+Martini, T. (2025). *strutR: Struthers Wetting-Front Model for Infiltration, Redistribution, and Drainage (R package).* Version 0.1.0. MIT License. https://doi.org/10.5281/zenodo.xxxxxx
+
+---
+
+## License and authorship
+
+Copyright (c) 2025
+Tommaso Martini  
+Department of Regional and Urban Studies and Planning (DIST), University of Turin, Italy
+
+Released under the MIT License. See [LICENSE](LICENSE) for details.
+
+This software is an independent, open-source reimplementation of the Struthers model. It is **not affiliated** with the original authors or the American Geophysical Union (AGU), and it is distributed for research and educational purposes only.
+
+---
+
+## Related resources
+
+- Original model publication: https://doi.org/10.1029/2005WR004645  
+- GitHub repository: https://github.com/tommaso-martini/strutR  
+- Example vignettes: `vignette("struthers-examples", package = "strutR")`  

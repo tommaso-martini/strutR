@@ -1,0 +1,46 @@
+# RStudio project files
+^.*\.Rproj$
+^\.Rproj\.user$
+
+# Git and version control
+^\.git$
+^\.gitignore$
+^\.gitattributes$
+^\.github$
+
+# Local build / cache / temp
+^\.DS_Store$
+^\.vscode$
+^\.Rhistory$
+^\.RData$
+^\.Ruserdata$
+^__pycache__$
+^\.pytest_cache$
+
+# Non-standard top-level metadata files
+^CITATION\.cff$
+^zenodo\.json$
+^git$
+
+# Prebuilt vignette outputs
+^vignettes/.+\.html$
+^vignettes/.+\.pdf$
+
+# CRAN submission artifacts (optional)
+^cran-comments\.md$
+^CRAN-RELEASE$
+
+# Miscellaneous project or dev tools
+^README\.html$
+^README\.Rmd$
+^pkgdown$
+
+# Unit tests / local data (if you don't want to ship them)
+^tests/testthat/.+\.Rout\.save$
+^data-raw$
+
+# Other archives or temporary builds
+^.*\.tar\.gz$
+^.*\.zip$
+^doc$
+^Meta$

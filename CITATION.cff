@@ -29,6 +29,17 @@ keywords:
   - wetting fronts
   - unsaturated flow
   - R package
+  
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.17495129"
+    description: "DOI of this specific version (v0.1.2)"
+  - type: doi
+    value: "10.5281/zenodo.17495128"
+    description: "Concept DOI representing all versions"
+  - type: doi
+    value: "10.1029/2005WR004645"
+    description: "Original scientific article by Struthers et al. (2006)"
 
 preferred-citation:
   type: software

@@ -1,13 +1,16 @@
 # strutR — Struthers Wetting-Front Model for Infiltration, Redistribution, and Drainage
 
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.xxxxxx.svg)](https://doi.org/10.5281/zenodo.xxxxxx)
+
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/tommaso-martini/strutR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/tommaso-martini/strutR/actions/workflows/R-CMD-check.yaml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.xxxxxx.svg)](https://doi.org/10.5281/zenodo.xxxxxx)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17495128.svg)](https://doi.org/10.5281/zenodo.17495128)
+[![pkgdown](https://github.com/tommaso-martini/strutR/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/tommaso-martini/strutR/actions/workflows/pkgdown.yaml)
 <!-- badges: end -->
 
-[![pkgdown](https://github.com/tommaso-martini/strutR/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/tommaso-martini/strutR/actions/workflows/pkgdown.yaml)
+
 
 The `strutR` package provides a complete, transparent, and open-source R implementation of the multiple wetting-front gravitational infiltration and redistribution model originally introduced by:
 

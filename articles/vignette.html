@@ -74,12 +74,6 @@ Martini</h4>
 <div style="display:none">
 <p><span class="math display">$$
 \require{siunitx}
-% --- Macro usate nel testo ---
-\newcommand{\thstar}{\theta_{\star}}
-\newcommand{\thwp}{\theta_{\mathrm{wp}}}
-\newcommand{\ths}{\theta_{\mathrm{s}}}
-\newcommand{\thr}{\theta_{\mathrm{r}}}
-\newcommand{\dz}{\,\mathrm{d}z}
 $$</span></p>
 </div>
 <p>This vignette documents a front‐tracking water balance model that
@@ -118,12 +112,17 @@ and
 the profile is <strong>piecewise constant</strong> at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mi>i</mi></msub><annotation encoding="application/x-tex">\theta_i</annotation></semantics></math>
 (rectangular layers). The residual and saturated water contents are
-<span class="math inline">$\thr$</span> and <span class="math inline">$\ths$</span>, respectively.</p>
-<p>We assume a Brooks–Corey conductivity model <span class="math display">$$
-K(\theta) \;=\; K_s \left(\frac{\theta-\thr}{\ths-\thr}\right)^{1/b},
-$$</span> with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mi mathvariant="normal">r</mi></msub><annotation encoding="application/x-tex">\theta_{\mathrm{r}}</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mi mathvariant="normal">s</mi></msub><annotation encoding="application/x-tex">\theta_{\mathrm{s}}</annotation></semantics></math>,
+respectively.</p>
+<p>We assume a Brooks–Corey conductivity model
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>θ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mspace width="0.278em"></mspace><mo>=</mo><mspace width="0.278em"></mspace><msub><mi>K</mi><mi>s</mi></msub><msup><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mrow><mi>θ</mi><mo>−</mo><msub><mi>θ</mi><mi mathvariant="normal">r</mi></msub></mrow><mrow><msub><mi>θ</mi><mi mathvariant="normal">s</mi></msub><mo>−</mo><msub><mi>θ</mi><mi mathvariant="normal">r</mi></msub></mrow></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mn>1</mn><mi>/</mi><mi>b</mi></mrow></msup><mo>,</mo></mrow><annotation encoding="application/x-tex">
+K(\theta) \;=\; K_s \left(\frac{\theta-\theta_{\mathrm{r}}}{\theta_{\mathrm{s}}-\theta_{\mathrm{r}}}\right)^{1/b},
+</annotation></semantics></math> with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>K</mi><mi>s</mi></msub><annotation encoding="application/x-tex">K_s</annotation></semantics></math>
-[] and shape parameter
+[<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mspace width="0.167em"></mspace><msup><mi mathvariant="normal">d</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">m\,\mathrm{d}^{-1}</annotation></semantics></math>]
+and shape parameter
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">b&gt;0</annotation></semantics></math>.</p>
 <div class="section level3">
 <h3 id="notation">Notation<a class="anchor" aria-label="anchor" href="#notation"></a>
@@ -140,15 +139,16 @@ $$</span> with
 </li>
 <li>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">f(t)</annotation></semantics></math>
-[]: infiltration supply at the soil surface.<br>
+[<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mspace width="0.167em"></mspace><msup><mi mathvariant="normal">d</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">m\,\mathrm{d}^{-1}</annotation></semantics></math>]:
+infiltration supply at the soil surface.<br>
 </li>
 <li>
-<span class="math inline">$\thstar$</span> (theta_star):
-<strong>stress onset</strong> threshold.<br>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mo>⋆</mo></msub><annotation encoding="application/x-tex">\theta_{\star}</annotation></semantics></math>
+(theta_star): <strong>stress onset</strong> threshold.<br>
 </li>
 <li>
-<span class="math inline">$\thwp$</span> (theta_wp):
-<strong>wilting</strong> threshold for transpiration.<br>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mrow><mi mathvariant="normal">w</mi><mi mathvariant="normal">p</mi></mrow></msub><annotation encoding="application/x-tex">\theta_{\mathrm{wp}}</annotation></semantics></math>
+(theta_wp): <strong>wilting</strong> threshold for transpiration.<br>
 </li>
 <li>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Z</mi><mtext mathvariant="normal">root</mtext></msub><annotation encoding="application/x-tex">Z_{\text{root}}</annotation></semantics></math>
@@ -158,7 +158,8 @@ $$</span> with
 </li>
 <li>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>e</mi><mi>p</mi></msub><annotation encoding="application/x-tex">e_p</annotation></semantics></math>
-[]: potential evaporation (reference ET) per day;
+[<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mspace width="0.167em"></mspace><msup><mi mathvariant="normal">d</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">m\,\mathrm{d}^{-1}</annotation></semantics></math>]:
+potential evaporation (reference ET) per day;
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>v</mi></msub><mo>∈</mo><mrow><mo stretchy="true" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">C_v\in[0,1]</annotation></semantics></math>
 fraction allocated to transpiration on that day.</li>
 </ul>
@@ -212,7 +213,8 @@ depths are updated by the discrete mass balance
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>S</mi><mi>i</mi><mi>n</mi></msubsup><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><msubsup><mi>x</mi><mi>i</mi><mi>n</mi></msubsup><mo>−</mo><msubsup><mi>x</mi><mrow><mi>i</mi><mo>−</mo><mn>1</mn></mrow><mi>n</mi></msubsup><mo stretchy="true" form="postfix">)</mo></mrow><mspace width="0.167em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><msubsup><mi>θ</mi><mi>i</mi><mi>n</mi></msubsup><mo>−</mo><msubsup><mi>θ</mi><mrow><mi>i</mi><mo>−</mo><mn>1</mn></mrow><mi>n</mi></msubsup><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mspace width="2.0em"></mspace><msubsup><mi>S</mi><mi>i</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msubsup><mo>=</mo><msubsup><mi>S</mi><mi>i</mi><mi>n</mi></msubsup><mo>+</mo><msubsup><mi>q</mi><mi>i</mi><mi>n</mi></msubsup><mspace width="0.167em"></mspace><mi>Δ</mi><mi>t</mi><mo>,</mo></mrow><annotation encoding="application/x-tex">
 S_i^{n} = (x_i^{n}-x_{i-1}^{n})\,(\theta_i^{n}-\theta_{i-1}^{n}), \qquad
 S_i^{n+1} = S_i^{n} + q_i^{n}\,\Delta t,
-</annotation></semantics></math><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>x</mi><mi>i</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msubsup><mspace width="0.278em"></mspace><mo>=</mo><mspace width="0.278em"></mspace><msubsup><mi>x</mi><mrow><mi>i</mi><mo>−</mo><mn>1</mn></mrow><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msubsup><mspace width="0.278em"></mspace><mo>+</mo><mspace width="0.278em"></mspace><mfrac><msubsup><mi>S</mi><mi>i</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msubsup><mrow><mo>max</mo><mspace width="-0.167em"></mspace><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">(</mo><msubsup><mi>θ</mi><mi>i</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msubsup><mo>−</mo><msubsup><mi>θ</mi><mrow><mi>i</mi><mo>−</mo><mn>1</mn></mrow><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msubsup><mo>,</mo><mspace width="0.167em"></mspace><mi>ε</mi><mo minsize="1.2" maxsize="1.2" stretchy="false" form="postfix">)</mo></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">
+</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>x</mi><mi>i</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msubsup><mspace width="0.278em"></mspace><mo>=</mo><mspace width="0.278em"></mspace><msubsup><mi>x</mi><mrow><mi>i</mi><mo>−</mo><mn>1</mn></mrow><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msubsup><mspace width="0.278em"></mspace><mo>+</mo><mspace width="0.278em"></mspace><mfrac><msubsup><mi>S</mi><mi>i</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msubsup><mrow><mo>max</mo><mspace width="-0.167em"></mspace><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">(</mo><msubsup><mi>θ</mi><mi>i</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msubsup><mo>−</mo><msubsup><mi>θ</mi><mrow><mi>i</mi><mo>−</mo><mn>1</mn></mrow><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msubsup><mo>,</mo><mspace width="0.167em"></mspace><mi>ε</mi><mo minsize="1.2" maxsize="1.2" stretchy="false" form="postfix">)</mo></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">
 x_i^{n+1} \;=\; x_{i-1}^{n+1} \;+\; \frac{S_i^{n+1}}{\max\!\big(\theta_i^{n+1}-\theta_{i-1}^{n+1},\,\varepsilon\big)}.
 </annotation></semantics></math> Here
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ε</mi><annotation encoding="application/x-tex">\varepsilon</annotation></semantics></math>
@@ -260,8 +262,10 @@ x_{\text{new}} = x_{\min} + \frac{S_{\text{tot}}}{\max(\theta_{\text{new}}-\thet
 </div>
 </div>
 <div class="section level2">
-<h2 id="evapotranspiration-with-thstar-and-thwp">Evapotranspiration with <span class="math inline">$\thstar$</span>
-and <span class="math inline">$\thwp$</span><a class="anchor" aria-label="anchor" href="#evapotranspiration-with-thstar-and-thwp"></a>
+<h2 id="evapotranspiration-with-theta_star-and-theta_mathrmwp">Evapotranspiration with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mo>⋆</mo></msub><annotation encoding="application/x-tex">\theta_{\star}</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mrow><mi mathvariant="normal">w</mi><mi mathvariant="normal">p</mi></mrow></msub><annotation encoding="application/x-tex">\theta_{\mathrm{wp}}</annotation></semantics></math><a class="anchor" aria-label="anchor" href="#evapotranspiration-with-theta_star-and-theta_mathrmwp"></a>
 </h2>
 <p>ET is applied <strong>after</strong> I–R–D, without moving the front
 depths
@@ -269,14 +273,14 @@ depths
 Let the root-zone be
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">[</mo><mspace width="0.167em"></mspace><mi>δ</mi><mo>,</mo><mspace width="0.222em"></mspace><mi>δ</mi><mo>+</mo><msub><mi>Z</mi><mtext mathvariant="normal">root</mtext></msub><mspace width="0.167em"></mspace><mo stretchy="true" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[\,\delta,\ \delta+Z_{\text{root}}\,]</annotation></semantics></math>.
 Define the <strong>depth-weighted mean</strong> water content in the
-root zone: <span class="math display">$$
+root zone:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mover><mi>θ</mi><mo accent="true">‾</mo></mover><mtext mathvariant="normal">root</mtext></msub><mspace width="0.278em"></mspace><mo>=</mo><mspace width="0.278em"></mspace><mfrac><mn>1</mn><msub><mi>Z</mi><mtext mathvariant="normal">root</mtext></msub></mfrac><msubsup><mo>∫</mo><mi>δ</mi><mrow><mi>δ</mi><mo>+</mo><msub><mi>Z</mi><mtext mathvariant="normal">root</mtext></msub></mrow></msubsup><mi>θ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>z</mi><mo stretchy="true" form="postfix">)</mo></mrow><mspace width="0.167em"></mspace><mspace width="0.167em"></mspace><mi mathvariant="normal">d</mi><mi>z</mi><mspace width="0.278em"></mspace><mo>≈</mo><mspace width="0.278em"></mspace><mfrac><mn>1</mn><msub><mi>Z</mi><mtext mathvariant="normal">root</mtext></msub></mfrac><munder><mo>∑</mo><mrow><mi>i</mi><mo>∈</mo><mi>ℐ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>δ</mi><mo>,</mo><mi>δ</mi><mo>+</mo><msub><mi>Z</mi><mtext mathvariant="normal">root</mtext></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow></munder><msub><mi>θ</mi><mi>i</mi></msub><mspace width="0.167em"></mspace><mi>Δ</mi><msubsup><mi>z</mi><mi>i</mi><mo>*</mo></msubsup><mo>,</mo></mrow><annotation encoding="application/x-tex">
 \bar{\theta}_{\text{root}} \;=\;
-\frac{1}{Z_{\text{root}}}\int_{\delta}^{\delta+Z_{\text{root}}}\theta(z)\,\dz
+\frac{1}{Z_{\text{root}}}\int_{\delta}^{\delta+Z_{\text{root}}}\theta(z)\,\,\mathrm{d}z
 \;\approx\;
-\frac{1}{Z_{\text{root}}}\sum_{i\in \mathcal
-I(\delta,\delta+Z_{\text{root}})}
+\frac{1}{Z_{\text{root}}}\sum_{i\in \mathcal I(\delta,\delta+Z_{\text{root}})}
 \theta_i\,\Delta z_i^\ast,
-$$</span> where
+</annotation></semantics></math> where
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Δ</mi><msubsup><mi>z</mi><mi>i</mi><mo>*</mo></msubsup></mrow><annotation encoding="application/x-tex">\Delta z_i^\ast</annotation></semantics></math>
 is the fraction of layer
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
@@ -288,28 +292,37 @@ step, and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mrow><mi>b</mi><mi>s</mi></mrow></msub><mo>=</mo><msub><mi>e</mi><mi>p</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>C</mi><mi>v</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mi>Δ</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">D_{bs}= e_p(1-C_v)\Delta t</annotation></semantics></math>
 the bare-soil potential evaporation depth.</p>
 <div class="section level3">
-<h3 id="transpiration-e_t-eqs--1012-with-thstar-thwp">Transpiration
+<h3 id="transpiration-e_t-eqs--1012-with-theta_star-theta_mathrmwp">Transpiration
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>E</mi><mi>t</mi></msub><annotation encoding="application/x-tex">E_t</annotation></semantics></math>
-(Eqs. 10–12, with <span class="math inline">$\thstar$</span>, <span class="math inline">$\thwp$</span>)<a class="anchor" aria-label="anchor" href="#transpiration-e_t-eqs--1012-with-thstar-thwp"></a>
+(Eqs. 10–12, with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mo>⋆</mo></msub><annotation encoding="application/x-tex">\theta_{\star}</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mrow><mi mathvariant="normal">w</mi><mi mathvariant="normal">p</mi></mrow></msub><annotation encoding="application/x-tex">\theta_{\mathrm{wp}}</annotation></semantics></math>)<a class="anchor" aria-label="anchor" href="#transpiration-e_t-eqs--1012-with-theta_star-theta_mathrmwp"></a>
 </h3>
 <ol style="list-style-type: decimal">
-<li><p><strong>Potential (unstressed) phase</strong> up to <span class="math inline">$\thstar$</span>.<br>
-Water needed to raise/reduce the mean to <span class="math inline">$\thstar$</span>: <span class="math display">$$
-S_{\star} \;=\; \max\!\left(0,\
-\bigl(\bar{\theta}_{\text{root}}-\thstar\bigr)\,Z_{\text{root}}\right),
+<li><p><strong>Potential (unstressed) phase</strong> up to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mo>⋆</mo></msub><annotation encoding="application/x-tex">\theta_{\star}</annotation></semantics></math>.<br>
+Water needed to raise/reduce the mean to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mo>⋆</mo></msub><annotation encoding="application/x-tex">\theta_{\star}</annotation></semantics></math>:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mo>⋆</mo></msub><mspace width="0.278em"></mspace><mo>=</mo><mspace width="0.278em"></mspace><mo>max</mo><mspace width="-0.167em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><mspace width="0.222em"></mspace><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">(</mo><msub><mover><mi>θ</mi><mo accent="true">‾</mo></mover><mtext mathvariant="normal">root</mtext></msub><mo>−</mo><msub><mi>θ</mi><mo>⋆</mo></msub><mo minsize="1.2" maxsize="1.2" stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><msub><mi>Z</mi><mtext mathvariant="normal">root</mtext></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>t</mi><mo>⋆</mo></msub><mspace width="0.278em"></mspace><mo>=</mo><mspace width="0.278em"></mspace><mfrac><msub><mi>S</mi><mo>⋆</mo></msub><msub><mi>D</mi><mi>t</mi></msub></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">
+S_{\star} \;=\; \max\!\left(0,\ \bigl(\bar{\theta}_{\text{root}}-\theta_{\star}\bigr)\,Z_{\text{root}}\right),
 \qquad
 t_{\star} \;=\; \frac{S_{\star}}{D_t}.
-$$</span> If
+</annotation></semantics></math> If
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>t</mi><mo>⋆</mo></msub><mo>≥</mo><mi>Δ</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">t_{\star}\ge \Delta t</annotation></semantics></math>
 then
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mi>t</mi></msub><mo>=</mo><msub><mi>D</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">E_t = D_t</annotation></semantics></math>
 (all potential).</p></li>
-<li><p><strong>Stressed phase</strong> between <span class="math inline">$\thstar$</span> and <span class="math inline">$\thwp$</span>.<br>
-The available storage above <span class="math inline">$\thwp$</span> in
-the root-zone is <span class="math display">$$
-S_{\mathrm{avail},\wp} \;=\;
-\int_{\delta}^{\delta+Z_{\text{root}}}\max\big(\theta(z)-\thwp,\,0\big)\,\dz.
-$$</span> The exponential form (Eq. 12, re-expressed in
+<li><p><strong>Stressed phase</strong> between
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mo>⋆</mo></msub><annotation encoding="application/x-tex">\theta_{\star}</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mrow><mi mathvariant="normal">w</mi><mi mathvariant="normal">p</mi></mrow></msub><annotation encoding="application/x-tex">\theta_{\mathrm{wp}}</annotation></semantics></math>.<br>
+The available storage above
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mrow><mi mathvariant="normal">w</mi><mi mathvariant="normal">p</mi></mrow></msub><annotation encoding="application/x-tex">\theta_{\mathrm{wp}}</annotation></semantics></math>
+in the root-zone is
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mrow><mrow><mi mathvariant="normal">a</mi><mi mathvariant="normal">v</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">l</mi></mrow><mo>,</mo><mi>℘</mi></mrow></msub><mspace width="0.278em"></mspace><mo>=</mo><mspace width="0.278em"></mspace><msubsup><mo>∫</mo><mi>δ</mi><mrow><mi>δ</mi><mo>+</mo><msub><mi>Z</mi><mtext mathvariant="normal">root</mtext></msub></mrow></msubsup><mo>max</mo><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">(</mo><mi>θ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>z</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><msub><mi>θ</mi><mrow><mi mathvariant="normal">w</mi><mi mathvariant="normal">p</mi></mrow></msub><mo>,</mo><mspace width="0.167em"></mspace><mn>0</mn><mo minsize="1.2" maxsize="1.2" stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mspace width="0.167em"></mspace><mi mathvariant="normal">d</mi><mi>z</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">
+S_{\mathrm{avail},\wp} \;=\; \int_{\delta}^{\delta+Z_{\text{root}}}\max\big(\theta(z)-\theta_{\mathrm{wp}},\,0\big)\,\,\mathrm{d}z.
+</annotation></semantics></math> The exponential form (Eq. 12,
+re-expressed in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math>)
 over the leftover time
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Δ</mi><mi>t</mi><mo>−</mo><msub><mi>t</mi><mo>⋆</mo></msub></mrow><annotation encoding="application/x-tex">\Delta t - t_{\star}</annotation></semantics></math>
@@ -317,15 +330,17 @@ gives the target <span class="math display">$$
 E_{t,\mathrm{stress}} \;=\; S_{\mathrm{cap}}\,
 \Bigl(1 - e^{-\,(\,D_t(\Delta t -
 t_{\star})\,)/S_{\mathrm{cap}}}\Bigr),\qquad
-S_{\mathrm{cap}} = (\thstar-\thwp)\,Z_{\text{root}}.
+S_{\mathrm{cap}} =
+(\theta_{\star}-\theta_{\mathrm{wp}})\,Z_{\text{root}}.
 $$</span> The total target is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>E</mi><mi>t</mi><mtext mathvariant="normal">target</mtext></msubsup><mo>=</mo><mo>min</mo><mo stretchy="false" form="prefix">{</mo><mspace width="0.167em"></mspace><msub><mi>S</mi><mrow><mrow><mi mathvariant="normal">a</mi><mi mathvariant="normal">v</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">l</mi></mrow><mo>,</mo><mi>℘</mi></mrow></msub><mo>,</mo><mspace width="0.222em"></mspace><msub><mi>S</mi><mo>⋆</mo></msub><mo>+</mo><msub><mi>E</mi><mrow><mi>t</mi><mo>,</mo><mrow><mi mathvariant="normal">s</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">s</mi></mrow></mrow></msub><mspace width="0.167em"></mspace><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">E_t^\text{target} = \min\{\,S_{\mathrm{avail},\wp},\ S_\star + E_{t,\mathrm{stress}}\,\}</annotation></semantics></math>.</p></li>
 <li><p><strong>Application rule (volume removal)</strong>.<br>
 Remove
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>E</mi><mi>t</mi><mtext mathvariant="normal">target</mtext></msubsup><annotation encoding="application/x-tex">E_t^\text{target}</annotation></semantics></math><strong>top–down</strong> from the root-zone, reducing
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math>
-of the shallowest layers first while enforcing <span class="math inline">$\theta\ge \max(\thwp,\thr)$</span>. If a layer’s
-storage
+of the shallowest layers first while enforcing
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi><mo>≥</mo><mo>max</mo><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>θ</mi><mrow><mi mathvariant="normal">w</mi><mi mathvariant="normal">p</mi></mrow></msub><mo>,</mo><msub><mi>θ</mi><mi mathvariant="normal">r</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\theta\ge \max(\theta_{\mathrm{wp}},\theta_{\mathrm{r}})</annotation></semantics></math>.
+If a layer’s storage
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mi>i</mi></msub><mo>−</mo><msub><mi>x</mi><mrow><mi>i</mi><mo>−</mo><mn>1</mn></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>θ</mi><mi>i</mi></msub><mo>−</mo><msub><mi>θ</mi><mrow><mi>i</mi><mo>−</mo><mn>1</mn></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">(x_i-x_{i-1})(\theta_i-\theta_{i-1})</annotation></semantics></math>
 is exhausted, drop that front (merge).</p></li>
 </ol>
@@ -338,31 +353,35 @@ is exhausted, drop that front (merge).</p></li>
 <p>Define the <strong>evaporative layer</strong>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">[</mo><mspace width="0.167em"></mspace><mi>δ</mi><mo>,</mo><mspace width="0.222em"></mspace><mi>δ</mi><mo>+</mo><msub><mi>Z</mi><mtext mathvariant="normal">evap</mtext></msub><mspace width="0.167em"></mspace><mo stretchy="true" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[\,\delta,\ \delta+Z_{\text{evap}}\,]</annotation></semantics></math>
 (typically
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Z</mi><mtext mathvariant="normal">evap</mtext></msub><mspace width="-0.167em"></mspace><mo>∼</mo><mspace width="-0.167em"></mspace><mn>0.05</mn></mrow><annotation encoding="application/x-tex">Z_{\text{evap}}\!\sim\!0.05</annotation></semantics></math>–).
-Its available storage above <span class="math inline">$\thr$</span> is
-<span class="math display">$$
-S_{\mathrm{evap}} \;=\;
-\int_{\delta}^{\delta+Z_{\text{evap}}}\max\big(\theta(z)-\thr,\,0\big)\,\dz.
-$$</span> The daily target is <span class="math display">$$
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Z</mi><mtext mathvariant="normal">evap</mtext></msub><mspace width="-0.167em"></mspace><mo>∼</mo><mspace width="-0.167em"></mspace><mn>0.05</mn></mrow><annotation encoding="application/x-tex">Z_{\text{evap}}\!\sim\!0.05</annotation></semantics></math>–<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.1</mn><mspace width="0.222em"></mspace><mi mathvariant="normal">m</mi></mrow><annotation encoding="application/x-tex">0.1\ \mathrm{m}</annotation></semantics></math>).
+Its available storage above
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mi mathvariant="normal">r</mi></msub><annotation encoding="application/x-tex">\theta_{\mathrm{r}}</annotation></semantics></math>
+is
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mrow><mi mathvariant="normal">e</mi><mi mathvariant="normal">v</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">p</mi></mrow></msub><mspace width="0.278em"></mspace><mo>=</mo><mspace width="0.278em"></mspace><msubsup><mo>∫</mo><mi>δ</mi><mrow><mi>δ</mi><mo>+</mo><msub><mi>Z</mi><mtext mathvariant="normal">evap</mtext></msub></mrow></msubsup><mo>max</mo><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">(</mo><mi>θ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>z</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><msub><mi>θ</mi><mi mathvariant="normal">r</mi></msub><mo>,</mo><mspace width="0.167em"></mspace><mn>0</mn><mo minsize="1.2" maxsize="1.2" stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mspace width="0.167em"></mspace><mi mathvariant="normal">d</mi><mi>z</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">
+S_{\mathrm{evap}} \;=\; \int_{\delta}^{\delta+Z_{\text{evap}}}\max\big(\theta(z)-\theta_{\mathrm{r}},\,0\big)\,\,\mathrm{d}z.
+</annotation></semantics></math> The daily target is <span class="math display">$$
 E_{bs}^\text{target} \;=\; S_{\mathrm{evap}}\,
 \Bigl(1 - e^{-\, D_{bs}/S_{\mathrm{evap}}}\Bigr),
 $$</span> applied top–down within
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">[</mo><mspace width="0.167em"></mspace><mi>δ</mi><mo>,</mo><mi>δ</mi><mo>+</mo><msub><mi>Z</mi><mtext mathvariant="normal">evap</mtext></msub><mspace width="0.167em"></mspace><mo stretchy="true" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[\,\delta,\delta+Z_{\text{evap}}\,]</annotation></semantics></math>
-while enforcing <span class="math inline">$\theta\ge\thr$</span>.</p>
+while enforcing
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi><mo>≥</mo><msub><mi>θ</mi><mi mathvariant="normal">r</mi></msub></mrow><annotation encoding="application/x-tex">\theta\ge\theta_{\mathrm{r}}</annotation></semantics></math>.</p>
 </div>
 <div class="section level3">
 <h3 id="multilayer-transpiration-eq--18">Multilayer transpiration (Eq. 18)<a class="anchor" aria-label="anchor" href="#multilayer-transpiration-eq--18"></a>
 </h3>
 <p>If transpiration is split across multiple active layers
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>=</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>J</mi></mrow><annotation encoding="application/x-tex">j=1,\dots,J</annotation></semantics></math>
-(e.g. surface and deep roots), distribute the potential demand as <span class="math display">$$
+(e.g. surface and deep roots), distribute the potential demand as
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mi>j</mi></msub><mspace width="0.278em"></mspace><mo>=</mo><mspace width="0.278em"></mspace><mfrac><mrow><munder><mo>∑</mo><mrow><mi>i</mi><mo>∈</mo><msub><mi>ℐ</mi><mi>j</mi></msub></mrow></munder><mo minsize="1.8" maxsize="1.8" stretchy="false" form="prefix">(</mo><mo>max</mo><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>θ</mi><mrow><mi>i</mi><mo>,</mo><mi>j</mi></mrow></msub><mo>,</mo><msub><mi>θ</mi><mrow><mi mathvariant="normal">w</mi><mi mathvariant="normal">p</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mo>max</mo><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>θ</mi><mrow><mi>i</mi><mo>−</mo><mn>1</mn><mo>,</mo><mi>j</mi></mrow></msub><mo>,</mo><msub><mi>θ</mi><mrow><mi mathvariant="normal">w</mi><mi mathvariant="normal">p</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo minsize="1.8" maxsize="1.8" stretchy="false" form="postfix">)</mo></mrow><mrow><munderover><mo>∑</mo><mrow><mi>m</mi><mo>=</mo><mn>1</mn></mrow><mi>J</mi></munderover><munder><mo>∑</mo><mrow><mi>i</mi><mo>∈</mo><msub><mi>ℐ</mi><mi>m</mi></msub></mrow></munder><mo minsize="1.8" maxsize="1.8" stretchy="false" form="prefix">(</mo><mo>max</mo><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>θ</mi><mrow><mi>i</mi><mo>,</mo><mi>m</mi></mrow></msub><mo>,</mo><msub><mi>θ</mi><mrow><mi mathvariant="normal">w</mi><mi mathvariant="normal">p</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mo>max</mo><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>θ</mi><mrow><mi>i</mi><mo>−</mo><mn>1</mn><mo>,</mo><mi>m</mi></mrow></msub><mo>,</mo><msub><mi>θ</mi><mrow><mi mathvariant="normal">w</mi><mi mathvariant="normal">p</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo minsize="1.8" maxsize="1.8" stretchy="false" form="postfix">)</mo></mrow></mfrac><mo>,</mo><mspace width="2.0em"></mspace><munder><mo>∑</mo><mi>j</mi></munder><msub><mi>f</mi><mi>j</mi></msub><mo>=</mo><mn>1</mn><mo>,</mo></mrow><annotation encoding="application/x-tex">
 f_j \;=\;
 \frac{\displaystyle \sum_{i\in \mathcal I_j}
-\Big(\max(\theta_{i,j},\thwp) - \max(\theta_{i-1,j},\thwp)\Big)}
+\Big(\max(\theta_{i,j},\theta_{\mathrm{wp}}) - \max(\theta_{i-1,j},\theta_{\mathrm{wp}})\Big)}
 {\displaystyle \sum_{m=1}^{J}\sum_{i\in \mathcal I_m}
-\Big(\max(\theta_{i,m},\thwp) - \max(\theta_{i-1,m},\thwp)\Big)},
+\Big(\max(\theta_{i,m},\theta_{\mathrm{wp}}) - \max(\theta_{i-1,m},\theta_{\mathrm{wp}})\Big)},
 \qquad \sum_j f_j = 1,
-$$</span> and apply the two-phase rule independently in each layer with
+</annotation></semantics></math> and apply the two-phase rule
+independently in each layer with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>D</mi><mi>t</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>j</mi><mo stretchy="true" form="postfix">)</mo></mrow></msubsup><mo>=</mo><msub><mi>f</mi><mi>j</mi></msub><mspace width="0.167em"></mspace><msub><mi>D</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">D_t^{(j)}=f_j\,D_t</annotation></semantics></math>.</p>
 </div>
 </div>
@@ -370,7 +389,8 @@ $$</span> and apply the two-phase rule independently in each layer with
 <h2 id="numerical-safeguards">Numerical safeguards<a class="anchor" aria-label="anchor" href="#numerical-safeguards"></a>
 </h2>
 <ul>
-<li>Clamp <span class="math inline">$\theta\in[\thr,\ths]$</span>.</li>
+<li>Clamp
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi><mo>∈</mo><mrow><mo stretchy="true" form="prefix">[</mo><msub><mi>θ</mi><mi mathvariant="normal">r</mi></msub><mo>,</mo><msub><mi>θ</mi><mi mathvariant="normal">s</mi></msub><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">\theta\in[\theta_{\mathrm{r}},\theta_{\mathrm{s}}]</annotation></semantics></math>.</li>
 <li>Merge when
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">|</mo><msub><mi>θ</mi><mi>i</mi></msub><mo>−</mo><msub><mi>θ</mi><mrow><mi>i</mi><mo>−</mo><mn>1</mn></mrow></msub><mo stretchy="true" form="postfix">|</mo></mrow><mo>&lt;</mo><mi>τ</mi></mrow><annotation encoding="application/x-tex">|\theta_i-\theta_{i-1}|&lt;\tau</annotation></semantics></math>,
 on <strong>overtake</strong>, or on
@@ -382,7 +402,11 @@ avoid multiple front deletions in one call.</li>
 <div class="section level2">
 <h2 id="example-40day-simulation-with-hourly-substeps">Example: 40‑day simulation with hourly sub‑steps<a class="anchor" aria-label="anchor" href="#example-40day-simulation-with-hourly-substeps"></a>
 </h2>
-<p>The following example demonstrates I–R–D with daily ET using <span class="math inline">$\thstar$</span> and <span class="math inline">$\thwp$</span>. Units are meters and days.</p>
+<p>The following example demonstrates I–R–D with daily ET using
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mo>⋆</mo></msub><annotation encoding="application/x-tex">\theta_{\star}</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mrow><mi mathvariant="normal">w</mi><mi mathvariant="normal">p</mi></mrow></msub><annotation encoding="application/x-tex">\theta_{\mathrm{wp}}</annotation></semantics></math>.
+Units are meters and days.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tommaso-martini/strutR" class="external-link">strutR</a></span><span class="op">)</span> <span class="co"># if packaged</span></span>
 <span></span>
@@ -510,7 +534,8 @@ avoid multiple front deletions in one call.</li>
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">op</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="depthaveraged-bartheta0z-time-series">Depth‑averaged <span class="math inline">$\bar\theta(0,z^\*)$</span>
+<h3 id="depthaveraged-bartheta0z-time-series">Depth‑averaged
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>θ</mi><mo accent="true">‾</mo></mover><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><msup><mi>z</mi><mo>*</mo></msup><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\bar\theta(0,z^{*})</annotation></semantics></math>
 time series<a class="anchor" aria-label="anchor" href="#depthaveraged-bartheta0z-time-series"></a>
 </h3>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">

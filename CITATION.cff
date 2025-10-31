@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
 type: software
 title: "strutR: Struthers Wetting-Front Model for Infiltration, Redistribution, and Drainage"
-version: "0.1.0"
+version: "0.1.2"
 abstract: >
   Reference implementation in R of the Struthers multiple-wetting-front gravitational 
   infiltration and redistribution model for soil-water balance applications 
@@ -16,7 +16,6 @@ authors:
     given-names: Tommaso
     affiliation: "Department of Regional and Urban Studies and Planning (DIST), University of Turin (UniTo), Italy"
     email: "tommaso.martini@unito.it"
-    orcid: "https://orcid.org/0000-0000-0000-0000"
 
 license: MIT
 repository-code: "https://github.com/tommaso-martini/strutR"
@@ -68,10 +67,7 @@ references:
         given-names: Murugesu
     year: 2006
     journal: "Water Resources Research"
-    volume: 42
-    issue: 6
-    pages: "W06406"
-    doi: 10.1029/2005WR004645
-    url: "https://doi.org/10.1029/2005WR004645"
-    publisher: "American Geophysical Union (AGU)"
+    volume: "42"
+    issue: "6"
+    doi: "10.1029/2005WR004645"
 

@@ -1,0 +1,10 @@
+url: https://tommaso-martini.github.io/strutR/
+template:
+  bootstrap: 5
+home:
+  title: "strutR"
+  description: "Struthers wetting-front model in R"
+navbar:
+  structure:
+    left:  [reference, articles, news]
+    right: [search, github]

@@ -44,3 +44,5 @@
 ^.*\.zip$
 ^doc$
 ^Meta$
+^_pkgdown\.yml$
+^docs$

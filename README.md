@@ -3,6 +3,12 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.xxxxxx.svg)](https://doi.org/10.5281/zenodo.xxxxxx)
 
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/tommaso-martini/strutR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/tommaso-martini/strutR/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
+
+[![pkgdown](https://github.com/tommaso-martini/strutR/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/tommaso-martini/strutR/actions/workflows/pkgdown.yaml)
+
 The `strutR` package provides a complete, transparent, and open-source R implementation of the multiple wetting-front gravitational infiltration and redistribution model originally introduced by:
 
 Struthers, I., Hinz, C., & Sivapalan, M. (2006). *A multiple wetting front gravitational infiltration and redistribution model for water balance applications.* Water Resources Research, 42(6), W06406. https://doi.org/10.1029/2005WR004645
@@ -11,7 +17,7 @@ Struthers, I., Hinz, C., & Sivapalan, M. (2006). *A multiple wetting front gravi
 
 ## Overview
 
-The model describes infiltration, redistribution, and drainage in a one-dimensional unsaturated soil column through the dynamics of moving wetting fronts. Each front represents a discontinuity in soil water content, moving downward as infiltration proceeds and merging when moisture contrasts become small. The model assumes gravity-driven flow between fronts, with conductivity governed by a Brooks–Corey law and water mass conserved throughout redistribution and drainage.
+The Struthers model describes infiltration, redistribution, and drainage in a one-dimensional unsaturated soil column through the dynamics of moving wetting fronts. Each front represents a discontinuity in soil water content, moving downward as infiltration proceeds and merging when moisture contrasts become small. The model assumes gravity-driven flow between fronts, with conductivity governed by a Brooks–Corey law and water mass conserved throughout redistribution and drainage.
 
 This R implementation, `strutR`, is designed for reproducibility, transparency, and compatibility with stochastic and deterministic hydrological modelling. It can be used both as a standalone infiltration–redistribution solver and as a lower boundary module coupled to surface or root-zone models (for example, a two-bucket system).
 
@@ -83,28 +89,6 @@ str(res)
 
 This example performs a single infiltration–redistribution step consistent with the Struthers model equations, returning updated front positions, water contents, and drainage fluxes. Multiple steps can be iterated to represent continuous wet and dry cycles.
 
-## Accessing Example Scripts and Data
-
-The following gives a list of all the available examples.
-
-```r
-# List all example scripts included with the package
-list.files(system.file("examples", package = "strutR"))
-```
-
-They can be accessed as follows.
-
-```r
-# Locate an example script included with the package
-example_path <- system.file("examples", "put_example_name_here.R", package = "strutR")
-
-# Check that the file exists and display its path
-if (example_path == "") stop("Example file not found in the installed package.")
-cat("Example file path:", example_path, "\n")
-
-# Run the example
-source(example_path)
-```
 ---
 
 ## Theoretical background

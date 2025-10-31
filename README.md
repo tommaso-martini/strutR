@@ -97,7 +97,7 @@ This example performs a single infiltration–redistribution step consistent wit
 
 The Struthers model simplifies the Richards equation by assuming that soil moisture evolves as a sequence of sharp wetting fronts separating regions of nearly uniform water content. Infiltration creates new fronts, while redistribution gradually equalises moisture differences. The gravitational flux between adjacent layers is proportional to their hydraulic conductivity, and redistribution continues until the storage gradient vanishes or drainage occurs at the bottom boundary. Front merging ensures computational efficiency while maintaining mass balance.
 
-The model can be applied to a wide range of soil textures by specifying \(K_s\), \(\theta_s\), \(\theta_r\), and \(\beta\) according to measured or literature-based hydraulic properties. Drainage can be parameterised by the total soil depth \(L\) and an effective lower boundary condition.
+The model can be applied to a wide range of soil textures by specifying $K_s$, $\theta_s$, $\theta_r$, and $\beta$ according to measured or literature-based hydraulic properties. Drainage can be parameterised by the total soil depth $L$ and an effective lower boundary condition.
 
 ---
 
